@@ -34,7 +34,15 @@ class treeContainer extends Component{
         {
             id: '6',
             parent_id: '1'
-        }
+        },
+        {
+            id: '7',
+            parent_id: '2'
+        },
+        {
+            id: '8',
+            parent_id: '2'
+        },
     ]
 
     TreeNode = {
@@ -104,7 +112,7 @@ class treeContainer extends Component{
     getParents(id, e){
         let res = "";
         res = this.findChild(res, this.state.resultList, e.node.key);
-        console.log(res);
+        alert(res);
     }
 
     componentDidMount() {
