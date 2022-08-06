@@ -58,15 +58,16 @@ class treeContainer extends Component{
         return typeof obj[Symbol.iterator] === 'function';
     }
 
-    async makeTree() {
+    makeTree() {
         const tree_map = new Map();
 
         if (!this.isIterable(this.mas))
-            return null;
+            return;
 
+        let result = [];
         for (let element of this.mas) {
             if (!element.id)
-                return null;
+                return;
             let treeNode = {
                 title: element.id,
                 key: element.id,
@@ -82,9 +83,10 @@ class treeContainer extends Component{
             }
             else
             {
-                this.state.resultList.push(tree_map.get(element.id));
+                result.push(tree_map.get(element.id));
             }
         }
+        this.setState({resultList: result});
         console.log(this.state.resultList);
     }
 
@@ -116,11 +118,11 @@ class treeContainer extends Component{
     }
 
     componentDidMount() {
+        if (this.state.resultList.length === 0)
+            this.makeTree()
     }
 
     render(){
-        if (this.state.resultList.length === 0)
-            this.makeTree()
         return(<div id="treeWrapper" style={{ width: '50em', height: '20em' }}>
             <Tree treeData={this.state.resultList}
                   defaultExpandAll = {true}
