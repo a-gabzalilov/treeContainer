@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "rc-tree/assets/index.css";
-import Tree from "rc-tree";
+//import Tree from "rc-tree";
+import Tree from "./tree";
 
 class treeContainer extends Component{
     constructor(props) {
@@ -69,7 +70,6 @@ class treeContainer extends Component{
             if (!element.id)
                 return;
             let treeNode = {
-                title: element.id,
                 key: element.id,
                 children: []
             };
@@ -87,7 +87,6 @@ class treeContainer extends Component{
             }
         }
         this.setState({resultList: result});
-        console.log(this.state.resultList);
     }
 
     findChild(res, child, id){
@@ -111,9 +110,10 @@ class treeContainer extends Component{
         return "";
     }
 
-    getParents(id, e){
+    getParents(id){
+        console.log("tut");
         let res = "";
-        res = this.findChild(res, this.state.resultList, e.node.key);
+        res = this.findChild(res, this.state.resultList, id);
         alert(res);
     }
 
@@ -123,13 +123,7 @@ class treeContainer extends Component{
     }
 
     render(){
-        return(<div id="treeWrapper" style={{ width: '50em', height: '20em' }}>
-            <Tree treeData={this.state.resultList}
-                  defaultExpandAll = {true}
-                  showIcon={false}
-                  onSelect={this.getParents.bind(this)}
-            />
-        </div>)
+        return(<Tree treeData={this.state.resultList} onClick={this.getParents.bind(this)}/>);
     }
 }
 
